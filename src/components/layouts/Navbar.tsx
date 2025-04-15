@@ -6,7 +6,11 @@ import { useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const navItems = ["About", "Skills", "Project", "Contact"];
+const navItems = [
+  { label: "About", target: "about" },
+  { label: "Skills", target: "skills-project" },
+  { label: "Contact", target: "contact" },
+];
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme();
@@ -19,22 +23,30 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="flex justify-between items-center px-6 py-4 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white">
+    <nav className="flex justify-between items-center px-6 py-4 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white fixed w-full z-50">
       {/* Left: Logo */}
       <div className="font-bold text-xl">LOGO</div>
 
       {/* Center: Navigation */}
       <ul className="flex gap-6 text-lg">
         {navItems.map((item) => (
-          <li key={item} className="cursor-pointer hover:underline">
-            {item}
+          <li key={item.label}>
+            <a
+              href={`#${item.target}`}
+              className="cursor-pointer hover:underline"
+            >
+              {item.label}
+            </a>
           </li>
         ))}
       </ul>
 
       {/* Right: Theme Toggle */}
       {mounted && (
-        <button onClick={toggleTheme} className="relative w-10 h-10 flex items-center justify-center">
+        <button
+          onClick={toggleTheme}
+          className="relative w-10 h-10 flex items-center justify-center"
+        >
           <AnimatePresence mode="wait" initial={false}>
             {theme === "dark" ? (
               <motion.div

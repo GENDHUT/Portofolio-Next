@@ -1,16 +1,44 @@
 @import "tailwindcss";
 
-/* :root {
+
+html {
+  scroll-behavior: smooth;
+  cursor: url("/cursor/cursor.cur"), auto;
+
+}
+
+
+a:hover {
+  cursor: url("/cursor/clkcursor.cur"), pointer;
+}
+
+:hover{
+  cursor: url("/cursor/clkcursor.cur"), pointer;
+}
+
+input,
+textarea,
+input:focus,
+textarea:focus {
+  cursor: url("/cursor/typcursor.cur"), text;
+}
+
+button,
+.btn,
+[type="submit"] {
+  cursor: url("/cursor/clkcursor.cur"), pointer;
+}
+:root {
   --background: #ffffff;
   --foreground: #171717;
-} */
+}
 
-@theme inline {
+/* @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
+} */
 
 /* @media (prefers-color-scheme: dark) {
   :root {
