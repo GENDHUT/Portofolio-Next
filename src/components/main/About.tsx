@@ -10,10 +10,12 @@ const waving = {
 };
 
 const words = ["Web", "Android", "Desktop", "Game"];
+const mottos = ["Make it Simple", "Incepto ne desistam"];
 
 const About = () => {
   const [currentWord, setCurrentWord] = useState("Web");
 
+  // Typing effect
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentWord((prev) => {
@@ -23,6 +25,40 @@ const About = () => {
     }, 2000);
     return () => clearInterval(interval);
   }, []);
+
+  // Typing effect for motto
+  const [mottoIndex, setMottoIndex] = useState(0);
+  const [mottoDisplay, setMottoDisplay] = useState("");
+  const [typing, setTyping] = useState(true);
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+
+    const currentMotto = mottos[mottoIndex];
+
+    if (typing) {
+      if (mottoDisplay.length < currentMotto.length) {
+        timeout = setTimeout(() => {
+          setMottoDisplay(currentMotto.slice(0, mottoDisplay.length + 1));
+        }, 80);
+      } else {
+        // Pause after fully typed
+        timeout = setTimeout(() => setTyping(false), 1500);
+      }
+    } else {
+      if (mottoDisplay.length > 0) {
+        timeout = setTimeout(() => {
+          setMottoDisplay(currentMotto.slice(0, mottoDisplay.length - 1));
+        }, 50);
+      } else {
+        // Move to next motto after deleting
+        setMottoIndex((prev) => (prev + 1) % mottos.length);
+        setTyping(true);
+      }
+    }
+
+    return () => clearTimeout(timeout);
+  }, [mottoDisplay, typing, mottoIndex]);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center px-6 py-20 overflow-hidden">
@@ -73,9 +109,11 @@ const About = () => {
           ))}
         </div>
 
-        <p className="text-lg font-semibold italic mb-4">
-          "Make it Simple" - "Incepto ne desistam
-          "
+        {/* Motto with typing effect */}
+        <p className="text-lg font-semibold italic mb-4 min-h-[30px]">
+          <span className="border-r-2 border-pink-500 animate-pulse pr-1">
+            {mottoDisplay}
+          </span>
         </p>
 
         {/* CTA Button */}

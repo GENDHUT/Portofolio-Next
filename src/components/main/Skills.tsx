@@ -1,3 +1,4 @@
+// components/main/skills.tsx
 "use client";
 
 import { motion } from "framer-motion";
@@ -51,7 +52,13 @@ const skillGroups = [
 
 const Skills = () => {
   return (
-    <section className="min-h-screen py-20 px-6">
+    <motion.section
+      className="min-h-screen py-20 px-6"
+      initial={{ x: -100, opacity: 0 }}
+      whileInView={{ x: 0, opacity: 1 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      viewport={{ once: true, amount: 0.3 }}
+    >
       <div className="max-w-5xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 10 }}
@@ -87,7 +94,7 @@ const Skills = () => {
                       <div className="absolute inset-0 bg-gradient-to-br from-zinc-200 to-zinc-250 dark:from-zinc-700 dark:to-zinc-950 rounded-xl opacity-0 group-hover:opacity-90 dark:group-hover:opacity-80 transition-all duration-300 z-10"></div>
                       {/* Diatas Hover */}
                       <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-lg font-semibold z-20 group-hover:text-zinc-100 dark:group-hover:text-zinc-200">
-                      {skill.name}
+                        {skill.name}
                       </div>
                       <Image
                         src={`https://skillicons.dev/icons?i=${skill.icon}&theme=light`}
@@ -96,7 +103,7 @@ const Skills = () => {
                         height={60}
                         unoptimized
                         className="object-contain"
-                      />{" "}
+                      />
                     </motion.div>
                   </Tilt>
                 ))}
@@ -105,7 +112,7 @@ const Skills = () => {
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

@@ -1,7 +1,14 @@
 // Components/main/contact.tsx
 "use client";
 
-import { MessageSquareText, Mail, User, Github, Linkedin, Instagram } from "lucide-react";
+import {
+  MessageSquareText,
+  Mail,
+  User,
+  Github,
+  Linkedin,
+  Instagram,
+} from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
 
@@ -12,7 +19,15 @@ export default function Contact() {
     message: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const GITHUB_URL = process.env.NEXT_PUBLIC_GITHUB_URL!;
+  const LINKEDIN_URL = process.env.NEXT_PUBLIC_LINKEDIN_URL!;
+  const INSTAGRAM_URL = process.env.NEXT_PUBLIC_INSTAGRAM_URL!;
+  const WHATSAPP_URL = process.env.NEXT_PUBLIC_WHATSAPP_URL!;
+  const EMAIL = process.env.NEXT_PUBLIC_EMAIL!;
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setForm((prevForm) => ({ ...prevForm, [name]: value }));
   };
@@ -31,7 +46,7 @@ export default function Contact() {
       {/* --- Left Social Icons --- */}
       <div className="hidden md:flex flex-col items-center gap-4 absolute left-6 top-1/2 -translate-y-1/2 z-10">
         <a
-          href="https://github.com/GENDHUT"
+          href={GITHUB_URL}
           target="_blank"
           rel="noopener noreferrer"
           className=" hover:text-pink-500 transition-transform hover:scale-110"
@@ -39,7 +54,7 @@ export default function Contact() {
           <Github className="w-6 h-6" />
         </a>
         <a
-          href="https://www.linkedin.com/in/muhammad-raya-putra-a39686351/"
+          href={LINKEDIN_URL}
           target="_blank"
           rel="noopener noreferrer"
           className=" hover:text-pink-500 transition-transform hover:scale-110"
@@ -47,12 +62,28 @@ export default function Contact() {
           <Linkedin className="w-6 h-6" />
         </a>
         <a
-          href="https://www.instagram.com/gendhut_ganteng/"
+          href={INSTAGRAM_URL}
           target="_blank"
           rel="noopener noreferrer"
           className=" hover:text-pink-500 transition-transform hover:scale-110"
         >
           <Instagram className="w-6 h-6" />
+        </a>
+        {/* WhatsApp Icon (SVG) */}
+        <a
+          href={WHATSAPP_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className=" hover:text-green-500 transition-transform hover:scale-110"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-6 h-6"
+            fill="currentColor"
+            viewBox="0 0 448 512"
+          >
+            <path d="M380.9 97.1C339-5.2 217.9-35 128.7 28.1 39.5 91.2 3.2 205.5 41.6 302.4L1.7 464l168.3-44c91.6 49.4 202.5 9.5 244.4-84.2 38.3-96.8 3.6-211.1-73.5-238.7zM223.6 358c-35.1 0-67.6-11-94.5-32.7l-7.2-5.5-62.3 16.3 16.7-60.7-4.7-7.4C46.4 207 61.4 148.5 108.4 114c47-34.5 108.3-31.5 150.6 7.4 43.2 39.6 58.2 104.7 35.9 158.4-20.1 46.9-64.7 78.2-114.7 78.2z" />
+          </svg>
         </a>
         <div className="w-[1px] h-20 bg-zinc-500"></div>
       </div>

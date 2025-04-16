@@ -62,7 +62,13 @@ const ProjectCarousel = () => {
   }, [openCardIndex, projects]);
 
   return (
-    <section className="min-h-screen py-20 px-6">
+    <motion.section
+      className="min-h-screen py-20 px-6"
+      initial={{ x: 100, opacity: 0 }}
+      whileInView={{ x: 0, opacity: 1 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      viewport={{ once: true, amount: 0.3 }}
+    >
       <div className="max-w-4xl mx-auto relative z-0">
         <motion.h2
           initial={{ opacity: 0, y: 10 }}
@@ -186,7 +192,8 @@ const ProjectCarousel = () => {
                       alt={`Screenshot ${modalImageIndex + 1}`}
                       onClick={() =>
                         setModalImageIndex((prev) =>
-                          (prev + 1) % projects[openCardIndex].images.length
+                          (prev + 1) %
+                          projects[openCardIndex].images.length
                         )
                       }
                       className="w-full max-h-[400px] object-cover rounded-lg border border-white/10 cursor-pointer"
@@ -238,7 +245,7 @@ const ProjectCarousel = () => {
           )}
         </AnimatePresence>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

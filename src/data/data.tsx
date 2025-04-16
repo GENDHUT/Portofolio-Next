@@ -18,43 +18,48 @@ export const projects = [
       "CompileVortex adalah platform editor online mendukung lebih dari 40 bahasa. Mendukung input/output, auto-format, dan highlight syntax.",
     tags: ["React.js", "TypeScript", "Axios", "MORE..."],
     stack: ["Monaco Editor", "Axios", "Express", "Docker", "CodeExecutor API"],
-    images: ["/screenshots/compilevortex.png"], 
+    images: ["/screenshots/compilevortex.png"],
     repo: "#",
-  }, {
+  },
+  {
     title: "CompileVortex",
     description: "Web-based code editor untuk 40+ bahasa pemrograman.",
     fullDescription:
       "CompileVortex adalah platform editor online mendukung lebih dari 40 bahasa. Mendukung input/output, auto-format, dan highlight syntax.",
     tags: ["React.js", "TypeScript", "Axios", "MORE..."],
     stack: ["Monaco Editor", "Axios", "Express", "Docker", "CodeExecutor API"],
-    images: ["/screenshots/compilevortex.png"], 
+    images: ["/screenshots/compilevortex.png"],
     repo: "#",
-  }, {
+  },
+  {
     title: "CompileVortex",
     description: "Web-based code editor untuk 40+ bahasa pemrograman.",
     fullDescription:
       "CompileVortex adalah platform editor online mendukung lebih dari 40 bahasa. Mendukung input/output, auto-format, dan highlight syntax.",
     tags: ["React.js", "TypeScript", "Axios", "MORE..."],
     stack: ["Monaco Editor", "Axios", "Express", "Docker", "CodeExecutor API"],
-    images: ["/screenshots/compilevortex.png"], 
+    images: ["/screenshots/compilevortex.png"],
     repo: "#",
-  }, {
+  },
+  {
     title: "CompileVortex",
     description: "Web-based code editor untuk 40+ bahasa pemrograman.",
     fullDescription:
       "CompileVortex adalah platform editor online mendukung lebih dari 40 bahasa. Mendukung input/output, auto-format, dan highlight syntax.",
     tags: ["React.js", "TypeScript", "Axios", "MORE..."],
     stack: ["Monaco Editor", "Axios", "Express", "Docker", "CodeExecutor API"],
-    images: ["/screenshots/compilevortex.png"], 
+    images: ["/screenshots/compilevortex.png"],
     repo: "#",
-  }, {
-    title: "CompileVortex",
-    description: "Web-based code editor untuk 40+ bahasa pemrograman.",
+  },
+  // More ..
+  {
+    title: "More",
+    description: "More on GITHUB.",
     fullDescription:
-      "CompileVortex adalah platform editor online mendukung lebih dari 40 bahasa. Mendukung input/output, auto-format, dan highlight syntax.",
-    tags: ["React.js", "TypeScript", "Axios", "MORE..."],
-    stack: ["Monaco Editor", "Axios", "Express", "Docker", "CodeExecutor API"],
-    images: ["/screenshots/compilevortex.png"], 
+      "More on GITHUB.",
+    tags: ["MORE..."],
+    stack: [""],
+    images: ["/logos/git.png"],
     repo: "#",
   },
 ];
