@@ -1,5 +1,4 @@
 // Components/main/me.tsx
-// Components/main/me.tsx
 "use client";
 
 import Image from "next/image";
@@ -28,12 +27,12 @@ const Me = () => {
           </span>
           About Me
         </h1>
-        <h2 className="text-base md:text-lg leading-relaxed mb-4 text-gray-300">
+        <h2 className="text-base md:text-lg leading-relaxed mb-4">
           I’m a passionate developer who loves crafting elegant and efficient
           digital experiences. Whether it's building smooth UIs or complex
-          back-end systems, I'm all in. Currently exploring game dev and AI.
+          back-end systems, I'm all in. Currently exploring game dev and machine learning.
         </h2>
-        <h2 className="text-base md:text-lg leading-relaxed text-gray-400">
+        <h2 className="text-base md:text-lg leading-relaxed">
           When I'm not coding, I enjoy coffee, games, and learning new tech!
         </h2>
       </motion.div>
