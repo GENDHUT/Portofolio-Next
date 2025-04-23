@@ -6,6 +6,7 @@ import "./globals.css";
 import Navbar from "@/components/layouts/Navbar";
 import Footer from "@/components/layouts/Footer";
 import LoadingScreen from "@/components/components/LoadingScreen";
+import { SoundProvider } from "@/components/contexts/SoundContext";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({
@@ -31,11 +32,13 @@ export default function RootLayout({
     >
       <body>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <LoadingScreen>
-            <Navbar />
-            <main>{children}</main>
-            <Footer />
-          </LoadingScreen>
+          <SoundProvider>
+            <LoadingScreen>
+              <Navbar />
+              <main>{children}</main>
+              <Footer />
+            </LoadingScreen>
+          </SoundProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -1,9 +1,11 @@
 // components/main/skills.tsx
 "use client";
 
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Tilt from "react-parallax-tilt";
 import Image from "next/image";
+import { useSound } from "@/components/contexts/SoundContext";
 
 const skillGroups = [
   {
@@ -33,7 +35,7 @@ const skillGroups = [
     title: "Mobile | Game | Desktop",
     items: [
       { name: "Expo", icon: "react" },
-      { name: "Electron	", icon: "electron	" },
+      { name: "Electron", icon: "electron" },
       { name: "Flutter", icon: "flutter" },
       { name: "Unity (C#)", icon: "unity" },
       { name: "Godot", icon: "godot" },
@@ -44,13 +46,29 @@ const skillGroups = [
     items: [
       { name: "Linux", icon: "linux" },
       { name: "Ubuntu", icon: "ubuntu" },
-      { name: "deno", icon: "deno" },
+      { name: "Deno", icon: "deno" },
       { name: "Nginx", icon: "nginx" },
     ],
   },
 ];
 
+const generateAudioRefs = (total: number) => {
+  const refs = [];
+  for (let i = 1; i <= total; i++) {
+    refs.push(new Audio(`/sounds/MusicalTagSounds/${i}Note.mp3`));
+  }
+  return refs;
+};
+
 const Skills = () => {
+  const soundRefs = useRef<HTMLAudioElement[]>([]);
+  const { soundEnabled  } = useSound(); 
+  useEffect(() => {
+    soundRefs.current = generateAudioRefs(16);
+  }, []);
+
+  let globalIndex = 0;
+
   return (
     <motion.section
       className="min-h-screen py-20 px-6"
@@ -77,36 +95,53 @@ const Skills = () => {
               </h3>
 
               <div className="flex flex-wrap justify-center gap-6">
-                {group.items.map((skill, i) => (
-                  <Tilt
-                    key={skill.name}
-                    glareEnable={true}
-                    glareMaxOpacity={0.2}
-                    scale={1.05}
-                  >
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.4, delay: i * 0.1 }}
-                      className="w-24 h-24 bg-gradient-to-br from-zinc-200 to-zinc-250 rounded-xl shadow-lg flex items-center justify-center p-2 hover:scale-105 transition-transform group relative"
+                {group.items.map((skill) => {
+                  const currentIndex = globalIndex++;
+
+                  const handleHover = () => {
+                    if (!soundEnabled ) return;  
+
+                    const audio = soundRefs.current[currentIndex % 16];
+                    if (audio) {
+                      audio.currentTime = 0;
+                      audio.play().catch((e) => {
+                        console.warn("Audio play blocked:", e);
+                      });
+                    }
+                  };
+
+                  return (
+                    <Tilt
+                      key={skill.name}
+                      glareEnable={true}
+                      glareMaxOpacity={0.2}
+                      scale={1.05}
                     >
-                      {/* Hover */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-zinc-200 to-zinc-250 dark:from-zinc-700 dark:to-zinc-950 rounded-xl opacity-0 group-hover:opacity-90 dark:group-hover:opacity-80 transition-all duration-300 z-10"></div>
-                      {/* Diatas Hover */}
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-lg font-semibold z-20 group-hover:text-zinc-100 dark:group-hover:text-zinc-200">
-                        {skill.name}
-                      </div>
-                      <Image
-                        src={`https://skillicons.dev/icons?i=${skill.icon}&theme=light`}
-                        alt={skill.name}
-                        width={60}
-                        height={60}
-                        unoptimized
-                        className="object-contain"
-                      />
-                    </motion.div>
-                  </Tilt>
-                ))}
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.4, delay: currentIndex * 0.05 }}
+                        onMouseEnter={handleHover}
+                        className="w-24 h-24 bg-gradient-to-br from-zinc-200 to-zinc-250 rounded-xl shadow-lg flex items-center justify-center p-2 hover:scale-105 transition-transform group relative"
+                      >
+                        <div className="absolute inset-0 bg-gradient-to-br from-zinc-200 to-zinc-250 dark:from-zinc-700 dark:to-zinc-950 rounded-xl opacity-0 group-hover:opacity-90 dark:group-hover:opacity-80 transition-all duration-300 z-10" />
+
+                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-lg font-semibold z-20 group-hover:text-zinc-100 dark:group-hover:text-zinc-200">
+                          {skill.name}
+                        </div>
+
+                        <Image
+                          src={`https://skillicons.dev/icons?i=${skill.icon}&theme=light`}
+                          alt={skill.name}
+                          width={60}
+                          height={60}
+                          unoptimized
+                          className="object-contain"
+                        />
+                      </motion.div>
+                    </Tilt>
+                  );
+                })}
               </div>
             </div>
           ))}

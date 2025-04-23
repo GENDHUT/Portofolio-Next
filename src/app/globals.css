@@ -33,6 +33,20 @@ button,
   --foreground: #171717;
 }
 
+.gradient-scrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+
+.gradient-scrollbar::-webkit-scrollbar-track {
+  background: #eee;
+  border-radius: 10px;
+}
+
+.gradient-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #6366f1, #8b5cf6, #ec4899);
+  border-radius: 10px;
+} 
+
 /* @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
