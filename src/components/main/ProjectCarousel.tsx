@@ -136,7 +136,7 @@ export default function ProjectCarousel() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -30 }}
             transition={{ duration: 0.5 }}
-            className="space-y-8 mb-12 min-h-[1020px]"
+            className="space-y-8 mb-12 min-h-[1210px]"
           >
             {visibleProjects.map((p, i) => {
               const gi = startIdx + i;
@@ -188,146 +188,187 @@ export default function ProjectCarousel() {
 
         {/* MULTIPLE DRAGGABLE MODALS */}
         <AnimatePresence>
-          {openCardIndexes.map((idx) => (
-            <motion.div
-              key={idx}
-              className="fixed z-[9999] bg-zinc-900 border border-white/20 rounded-2xl shadow-2xl"
-              drag
-              dragMomentum={false}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.3 }}
-              onDragEnd={(_, info) => {
-                setModalPositions((prev) => ({
-                  ...prev,
-                  [idx]: {
-                    x: (prev[idx]?.x || 0) + info.delta.x,
-                    y: (prev[idx]?.y || 0) + info.delta.y,
-                  },
-                }));
-              }}
-              style={{
-                top: `20%`,
-                left: `30%`,
-                transform: `translate(-50%, -50%)`,
-                maxWidth: "90vw",
-                maxHeight: "90vh",
-                width: "600px",
-                boxSizing: "border-box",
-                overflow: "hidden",
-                position: "fixed",
-              }}
-            >
-              {/* Header */}
-              <div className="flex justify-between items-center bg-indigo-700 text-white px-4 py-2 rounded-t-2xl cursor-move">
-                <span className="text-3xl">{projects[idx].title}</span>
-                <button
-                  onClick={() => {
-                    if (soundEnabled && closeSoundRef.current) {
-                      closeSoundRef.current.currentTime = 0;
-                      closeSoundRef.current.play();
-                    }
-                    setOpenCardIndexes((prev) =>
-                      prev.filter((id) => id !== idx)
-                    );
-                  }}
-                  className="text-4xl font-bold"
-                >
-                  &times;
-                </button>
-              </div>
+          {openCardIndexes.map((idx) => {
+            const currentIndex = modalImageIndexes[idx] ?? 0;
+            const mediaItems = [
+              ...(projects[idx]?.giff?.map((src) => ({ type: "gif", src })) ??
+                []),
+              ...(projects[idx]?.mp4?.map((src) => ({ type: "video", src })) ??
+                []),
+              ...(projects[idx]?.images?.map((src) => ({
+                type: "image",
+                src,
+              })) ?? []),
+            ].filter((item) => item.src && item.src.trim());
 
-              {/* Content */}
-              <div className="p-4 text-white overflow-y-auto max-h-[75vh] relative">
-                {projects[idx].images?.[modalImageIndexes[idx]] && (
+            const current = mediaItems[currentIndex];
+            if (!current) return null;
+
+            return (
+              <motion.div
+                key={idx}
+                className="fixed z-[9999] backdrop-blur-3xl bg-white/10 dark:bg-black/10 border border-white/20 rounded-2xl shadow-2xl"
+                drag
+                dragMomentum={false}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.3 }}
+                onDragEnd={(_, info) => {
+                  setModalPositions((prev) => ({
+                    ...prev,
+                    [idx]: {
+                      x: (prev[idx]?.x || 0) + info.delta.x,
+                      y: (prev[idx]?.y || 0) + info.delta.y,
+                    },
+                  }));
+                }}
+                style={{
+                  top: `20%`,
+                  left: `30%`,
+                  transform: `translate(-50%, -50%)`,
+                  maxWidth: "90vw",
+                  maxHeight: "90vh",
+                  width: "600px",
+                  boxSizing: "border-box",
+                  overflow: "hidden",
+                  position: "fixed",
+                }}
+              >
+                {/* Header */}
+                <div className="relative bg-indigo-700 text-white px-4 py-2 rounded-t-2xl">
+                  <span className="text-3xl pr-10">{projects[idx]?.title}</span>
+                  <button
+                    onClick={() => {
+                      if (soundEnabled && closeSoundRef.current) {
+                        closeSoundRef.current.currentTime = 0;
+                        closeSoundRef.current.play();
+                      }
+                      setOpenCardIndexes((prev) =>
+                        prev.filter((id) => id !== idx)
+                      );
+                    }}
+                    className="absolute top-1 right-1 text-3xl font-bold w-8 h-8 flex items-center justify-center rounded hover:bg-white/20 transition"
+                  >
+                    &times;
+                  </button>
+                </div>
+
+                {/* Content */}
+                <div className="p-4  overflow-y-auto max-h-[75vh] relative">
                   <div className="flex justify-center mb-4 relative w-full h-[300px] overflow-hidden rounded-lg">
                     <AnimatePresence initial={false} mode="wait">
-                      <motion.img
-                        key={modalImageIndexes[idx]}
-                        src={projects[idx].images[modalImageIndexes[idx]]}
-                        alt={`Slide ${modalImageIndexes[idx] + 1}`}
-                        onLoad={(e) => {
-                          const { naturalWidth, naturalHeight } =
-                            e.currentTarget;
-                          setOrientations((prev) => ({
-                            ...prev,
-                            [idx]:
-                              naturalHeight > naturalWidth
-                                ? "portrait"
-                                : "landscape",
-                          }));
-                        }}
-                        onClick={() =>
-                          setModalImageIndexes((prev) => ({
-                            ...prev,
-                            [idx]:
-                              (prev[idx] + 1) % projects[idx].images!.length,
-                          }))
-                        }
-                        className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
-                  rounded-lg border border-white/10 cursor-pointer
-                  transition-all duration-300
-                  ${
-                    orientations[idx] === "portrait"
-                      ? "max-h-full w-auto"
-                      : "w-full h-auto"
-                  }`}
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.95 }}
-                        transition={{ duration: 0.4, ease: "easeInOut" }}
-                      />
+                      {current.type === "video" ? (
+                        <motion.video
+                          key={current.src}
+                          src={current.src}
+                          autoPlay
+                          loop
+                          muted
+                          playsInline
+                          onClick={() =>
+                            setModalImageIndexes((prev) => ({
+                              ...prev,
+                              [idx]: ((prev[idx] ?? 0) + 1) % mediaItems.length,
+                            }))
+                          }
+                          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-lg border border-white/10 cursor-pointer transition-all duration-300 w-full h-auto"
+                          initial={{ opacity: 0, scale: 0.95 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.95 }}
+                          transition={{ duration: 0.4, ease: "easeInOut" }}
+                        />
+                      ) : (
+                        <motion.img
+                          key={current.src}
+                          src={current.src}
+                          alt={`Slide ${currentIndex + 1}`}
+                          onLoad={(e) => {
+                            const { naturalWidth, naturalHeight } =
+                              e.currentTarget;
+                            setOrientations((prev) => ({
+                              ...prev,
+                              [idx]:
+                                naturalHeight > naturalWidth
+                                  ? "portrait"
+                                  : "landscape",
+                            }));
+                          }}
+                          onClick={() =>
+                            setModalImageIndexes((prev) => ({
+                              ...prev,
+                              [idx]: ((prev[idx] ?? 0) + 1) % mediaItems.length,
+                            }))
+                          }
+                          className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-lg border border-white/10 cursor-pointer transition-all duration-300 ${
+                            orientations[idx] === "portrait"
+                              ? "max-h-full w-auto"
+                              : "w-full h-auto"
+                          }`}
+                          initial={{ opacity: 0, scale: 0.95 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.95 }}
+                          transition={{ duration: 0.4, ease: "easeInOut" }}
+                        />
+                      )}
                     </AnimatePresence>
                   </div>
-                )}
 
-                {/* Deskripsi */}
-                {Array.isArray(projects[idx].fullDescription) ? (
-                  <ul className="space-y-1">
-                    {projects[idx].fullDescription.map((text, i) =>
-                      text.startsWith("~") ? (
-                        <li
-                          key={i}
-                          className="ml-5 list-disc text-lg text-white/80"
-                        >
-                          {text.slice(1)}
-                        </li>
-                      ) : (
-                        <p
-                          key={i}
-                          className="mb-2 text-lg text-white/90 leading-relaxed"
-                        >
-                          {text}
-                        </p>
-                      )
-                    )}
-                  </ul>
-                ) : (
-                  <p className="mb-2 font-bold text-sm text-white/90 leading-relaxed">
-                    {projects[idx].fullDescription}
-                  </p>
-                )}
-              </div>
-
-              {/* Footer / Repo Link */}
-              <a
-                href={projects[idx].repo}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="absolute bottom-4 right-4 transform hover:scale-110 transition-all duration-300"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <div className="bg-white/90 p-2 rounded-full shadow-md hover:shadow-xl">
-                  <img
-                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg"
-                    alt="GitHub Logo"
-                    className="w-5 h-5"
-                  />
+                  {/* Deskripsi */}
+                  {Array.isArray(projects[idx]?.fullDescription) ? (
+                    <ul className="space-y-1">
+                      {projects[idx].fullDescription.map((text, i) =>
+                        text.startsWith("~") ? (
+                          <li
+                            key={i}
+                            className="ml-5 list-disc text-lg font-semibold"
+                          >
+                            {text.slice(1)}
+                          </li>
+                        ) : (
+                          <p
+                            key={i}
+                            className="mb-2 text-lg font-bold leading-relaxed"
+                          >
+                            {text}
+                          </p>
+                        )
+                      )}
+                    </ul>
+                  ) : (
+                    <p className="mb-2 font-bold text-sm leading-relaxed">
+                      {projects[idx]?.fullDescription}
+                    </p>
+                  )}
                 </div>
-              </a>
-            </motion.div>
-          ))}
+
+                {/* Footer / Repo Link */}
+                {(projects[idx]?.repo || projects[idx]?.wa) && (
+                  <a
+                    href={projects[idx]?.wa || projects[idx]?.repo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="absolute bottom-4 right-4 transform hover:scale-110 transition-all duration-300"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <div className="bg-white/90 p-2 rounded-full shadow-md hover:shadow-xl">
+                      <img
+                        src={
+                          projects[idx]?.wa
+                            ? "https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+                            : "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg"
+                        }
+                        alt={
+                          projects[idx]?.wa ? "WhatsApp Logo" : "GitHub Logo"
+                        }
+                        className="w-5 h-5"
+                      />
+                    </div>
+                  </a>
+                )}
+              </motion.div>
+            );
+          })}
         </AnimatePresence>
       </div>
     </motion.section>

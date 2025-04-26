@@ -1,18 +1,16 @@
 @import "tailwindcss";
 
-
 html {
   scroll-behavior: smooth;
   cursor: url("/cursor/cursor.cur"), auto;
-
 }
 
-
-a:hover {
-  cursor: url("/cursor/clkcursor.cur"), pointer;
-}
-
-:hover{
+/* Cursor custom */
+a:hover,
+button,
+.btn,
+[type="submit"],
+:hover {
   cursor: url("/cursor/clkcursor.cur"), pointer;
 }
 
@@ -23,38 +21,39 @@ textarea:focus {
   cursor: url("/cursor/typcursor.cur"), text;
 }
 
-button,
-.btn,
-[type="submit"] {
-  cursor: url("/cursor/clkcursor.cur"), pointer;
+/* Global Gradient Scrollbar */
+* {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #ec4899 transparent;
 }
-:root {
+
+/* Chrome, Edge, Safari */
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #6366f1, #8b5cf6, #ec4899);
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #818cf8, #a78bfa, #f472b6);
+}
+
+/* Theme Variables */
+/* :root {
   --background: #ffffff;
   --foreground: #171717;
 }
 
-.gradient-scrollbar::-webkit-scrollbar {
-  width: 10px;
-}
-
-.gradient-scrollbar::-webkit-scrollbar-track {
-  background: #eee;
-  border-radius: 10px;
-}
-
-.gradient-scrollbar::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #6366f1, #8b5cf6, #ec4899);
-  border-radius: 10px;
-} 
-
-/* @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-} */
-
-/* @media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;

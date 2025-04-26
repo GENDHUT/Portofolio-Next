@@ -83,18 +83,28 @@ const About = () => {
         </motion.h1>
 
         {/* Typing effect text */}
-        <h2 className="text-xl md:text-2xl font-medium mb-6">
+         <h2 className="text-xl md:text-2xl font-medium mb-6">
           A passionate{" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 font-semibold transition-all">
-            {currentWord}
+          {currentWord}
           </span>{" "}
-          Developer based in Indonesia
+          Developer based in{" "}
+          <span className="relative inline-block">
+            Indonesia
+            <motion.img
+              src="https://cdn.jsdelivr.net/npm/flag-icons@5.0.0/flags/4x3/id.svg"
+              alt="Indonesia Flag"
+              className="absolute top-0 left-full ml-2 w-8 h-8 animate-pulse"
+            />
+          </span>
         </h2>
 
         {/* Description */}
         <p className="text-base md:text-lg leading-relaxed mb-8">
-          I love building beautiful and performant web apps using modern
-          technologies. Currently focusing on:
+          I am a student who studies computer stuff and modern technology
+          because it has been my hobby since I was little. I love building
+          beautiful and performant apps using modern technologies. Currently
+          focusing on:
         </p>
 
         {/* Tech Stack Badges */}

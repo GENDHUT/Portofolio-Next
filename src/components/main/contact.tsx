@@ -119,7 +119,9 @@ export default function Contact() {
       {/* --- Right Email --- */}
       <div className="hidden md:flex flex-col items-center gap-4 absolute right-6 top-1/2 -translate-y-1/2 z-10">
         <a
-          href={`mailto:${EMAIL}`}
+          href={`https://mail.google.com/mail/?view=cm&fs=1&to=${EMAIL}`}
+          target="_blank"
+          rel="noopener noreferrer"
           className="hover:text-pink-500 text-2xl rotate-90 tracking-wider"
         >
           {EMAIL}
