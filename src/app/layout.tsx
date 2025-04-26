@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   title: "GENDHUT Portofolio",
   description: "Personal Portofolio GENDHUT",
   icons: {
-    icon: "/logo.ico", 
+    icon: "/Logo.ico", 
   },
 };
 
