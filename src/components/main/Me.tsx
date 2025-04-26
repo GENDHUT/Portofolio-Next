@@ -65,7 +65,7 @@ const Me = () => {
         />
 
         <Image
-          src="/pp.jpg"
+          src="/PP.jpg"
           alt="Me"
           width={320}
           height={400}
