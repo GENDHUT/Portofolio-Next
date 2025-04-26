@@ -41,7 +41,7 @@ export const projects = [
     tags: ["Python", "Animation", "Manim", "Math", "MORE..."],
     stack: ["Python", "Manim", "Windows Batch Script"],
     images: [],
-    giff: ["/logo.gif"],
+    giff: ["/Logo.gif"],
     mp4: [
       "/projek/manim/LogoAnimation.mp4",
       "/projek/manim/PythonToSVG.mp4",
