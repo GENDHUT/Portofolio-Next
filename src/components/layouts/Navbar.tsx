@@ -8,7 +8,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useSound } from "@/components/contexts/SoundContext";
 import { Menu, X } from "lucide-react";
 
-
 const navItems = [
   { label: "About", target: "about" },
   { label: "Skills", target: "skills-project" },
@@ -89,24 +88,30 @@ export default function Navbar() {
     >
       <div className="flex justify-between items-center">
         {/* Logo Animation */}
-        <motion.div
-          className="flex space-x-0.5 text-2xl font-extrabold"
-          variants={containerVariants}
-          initial="initial"
-          animate="animate"
+        <a
+          href="https://www.gendhut.my.id"
+          target="_blank"
+          rel="noopener noreferrer"
         >
-          {logoLetters.map((char, index) => (
-            <motion.span
-              key={index}
-              variants={letterVariants}
-              animate={["animate", "loop"]}
-              className="inline-block bg-gradient-to-br from-orange-400 via-yellow-500 to-orange-600 bg-clip-text text-transparent"
-            >
-              {char}
-            </motion.span>
-          ))}
-        </motion.div>
-  
+          <motion.div
+            className="flex space-x-0.5 text-2xl font-extrabold"
+            variants={containerVariants}
+            initial="initial"
+            animate="animate"
+          >
+            {logoLetters.map((char, index) => (
+              <motion.span
+                key={index}
+                variants={letterVariants}
+                animate={["animate", "loop"]}
+                className="inline-block bg-gradient-to-br from-orange-400 via-yellow-500 to-orange-600 bg-clip-text text-transparent"
+              >
+                {char}
+              </motion.span>
+            ))}
+          </motion.div>
+        </a>
+
         {/* Theme & Sound Toggles + Mobile Menu Button */}
         {mounted && (
           <div className="flex gap-3 items-center">
@@ -139,7 +144,7 @@ export default function Navbar() {
                 )}
               </AnimatePresence>
             </button>
-  
+
             {/* Sound Toggle */}
             <button
               onClick={handleSoundToggle}
@@ -169,7 +174,7 @@ export default function Navbar() {
                 )}
               </AnimatePresence>
             </button>
-  
+
             {/* Mobile menu button */}
             <button
               onClick={() => setIsMenuOpen((prev) => !prev)}
@@ -180,7 +185,7 @@ export default function Navbar() {
           </div>
         )}
       </div>
-  
+
       {/* Desktop Nav Items */}
       <ul className="hidden lg:flex absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 gap-6 text-2xl font-extrabold">
         {navItems.map((item) => (
@@ -194,7 +199,7 @@ export default function Navbar() {
           </li>
         ))}
       </ul>
-  
+
       {/* Mobile Nav Items */}
       <AnimatePresence>
         {isMenuOpen && (
