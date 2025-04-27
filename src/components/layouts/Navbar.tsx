@@ -90,7 +90,6 @@ export default function Navbar() {
         {/* Logo Animation */}
         <a
           href="https://www.gendhut.my.id"
-          target="_blank"
           rel="noopener noreferrer"
         >
           <motion.div
