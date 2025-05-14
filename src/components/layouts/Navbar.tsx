@@ -1,5 +1,6 @@
 // components/Navbar.tsx
 "use client";
+import Link from "next/link";
 
 import { useTheme } from "next-themes";
 import { useEffect, useRef, useState } from "react";
@@ -132,7 +133,12 @@ export default function Navbar() {
     >
       {/* Logo + Actions */}
       <div className="flex justify-between items-center">
-        <a href="https://www.gendhut.my.id" rel="noopener noreferrer">
+        <div
+          onClick={() => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+          className="cursor-pointer"
+        >
           <motion.div
             className="flex space-x-0.5 text-2xl font-extrabold"
             variants={containerVariants}
@@ -144,13 +150,15 @@ export default function Navbar() {
                 key={index}
                 variants={letterVariants}
                 animate={["animate", "loop"]}
-                className="inline-block bg-gradient-to-br from-orange-400 via-yellow-500 to-orange-600 bg-clip-text text-transparent"
+                className={`inline-block bg-gradient-to-br from-orange-400 via-yellow-500 to-orange-600 bg-clip-text text-transparent transition duration-300 ${
+                  scrolled ? "opacity-20" : "opacity-100"
+                }`}
               >
                 {char}
               </motion.span>
             ))}
           </motion.div>
-        </a>
+        </div>
 
         {mounted && (
           <div className="flex gap-3 items-center">
