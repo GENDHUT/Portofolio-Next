@@ -97,8 +97,11 @@ export default function Navbar() {
   }, [isMenuOpen]);
 
   // ==== Handlers ====
-  const playSound = (ref: React.MutableRefObject<HTMLAudioElement | null>) => {
-    if (soundEnabled && ref.current) {
+  const playSound = (
+    ref: React.MutableRefObject<HTMLAudioElement | null>,
+    forcePlay = false
+  ) => {
+    if ((soundEnabled || forcePlay) && ref.current) {
       ref.current.currentTime = 0;
       ref.current.play();
     }
@@ -110,7 +113,7 @@ export default function Navbar() {
   };
 
   const handleSoundToggle = () => {
-    playSound(soundToggleRef);
+    playSound(soundToggleRef, true); 
     toggleSound();
   };
 
