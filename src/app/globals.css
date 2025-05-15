@@ -47,6 +47,27 @@ textarea:focus {
   background: linear-gradient(to bottom, #818cf8, #a78bfa, #f472b6);
 }
 
+/* Gelombang animation bubble */
+@keyframes float-wave {
+  0%, 100% {
+    transform: translateY(-5%) translateX(0);
+  }
+  25% {
+    transform: translateY(0) translateX(5px);
+  }
+  50% {
+    transform: translateY(5%) translateX(0);
+  }
+  75% {
+    transform: translateY(0) translateX(-5px);
+  }
+}
+
+.animate-float-wave {
+  animation: float-wave 3s ease-in-out infinite;
+}
+
+
 /* Theme Variables */
 /* :root {
   --background: #ffffff;
