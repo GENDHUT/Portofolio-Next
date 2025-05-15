@@ -170,7 +170,9 @@ const About = () => {
 
         <motion.span
           className="relative inline-block cursor-pointer"
-          whileHover={{ scale: 1.3 }}
+          initial={{ scale: 1 }}
+          animate={{ scale: 1 }}
+          whileHover={{ scale: 1.1 }}
           transition={{
             type: "spring",
             stiffness: 300,
