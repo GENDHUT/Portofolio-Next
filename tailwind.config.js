@@ -2,12 +2,12 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: "class",
-  content: [
-    "./app/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./app/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      dropShadow: {
+        "neon-purple": "0 0 10px rgba(180, 100, 255, 0.8)",
+      },
       keyframes: {
         // Animasi float vertikal (default)
         float: {
@@ -27,15 +27,6 @@ module.exports = {
       animation: {
         float: "float 3s ease-in-out infinite",
         "float-wave": "float-wave 3s ease-in-out infinite",
-      },
-
-      // Scroll snap untuk storytelling
-      scrollSnapType: {
-        y: 'y mandatory',
-      },
-
-      scrollSnapAlign: {
-        start: 'start',
       },
     },
   },
